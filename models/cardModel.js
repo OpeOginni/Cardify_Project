@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 const Bank = require('./bankModel');
-const catchAsync = require('../utils/catchAsync');
 
 // We Create a schema for the Card Object
 // name, issuer < bank that issues the card > , description, images, price, slug, createdAt
@@ -18,7 +17,7 @@ const cardSchema = new mongoose.Schema({
     minLenght: [7, 'A card mist have more than or equal to 10 chracters'],
   },
   issuer: {
-    type: mongoose.Schema.ObjectId, // The attribute type is that of an Object Id
+    type: mongoose.Schema.Types.ObjectId, // The attribute type is that of an Object Id
     ref: Bank, // The Referecnce is the Bank Model, so the Object Id is that of a Bank Object
     required: [true, 'Card must belong to a Bank'],
   },
@@ -42,24 +41,16 @@ const cardSchema = new mongoose.Schema({
 // Populating Issuer
 cardSchema.pre(/^find/, function (next) {
   // Whenever any find operations are made for a Card Object the Issuer attribute is poulated and the Name of the issuer is returned as a response
-  this.populate({
-    path: 'issuer',
-    select: 'name',
-  });
+  this.populate({ path: 'issuer', select: 'name' });
   next();
 });
 
 // MIDDLEWARES
-cardSchema.pre(
-  'save',
-  catchAsync(async function (next) {
-    // Creates a slug whenever a card is saved. "Bank01-Debit-Card"
-    // const _issuer = await Bank.findById(this.issuer);
-    console.log(this.issuer);
-    this.slug = slugify(`${this.name}`, { lower: true });
-    next();
-  })
-);
+cardSchema.pre('save', async function (next) {
+  const _issuer = await Bank.findById(this.issuer); // Get the Name of the Issuer
+  this.slug = slugify(`${_issuer.name} ${this.name}`, { lower: true }); // Creating a slug of the Issuer Name and the Card Name
+  next();
+});
 
 // Creating the Card model
 const Card = mongoose.model('Card', cardSchema);

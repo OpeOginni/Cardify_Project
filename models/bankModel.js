@@ -13,13 +13,13 @@ const bankSchema = new mongoose.Schema({
   },
   reps:
     // Array of Bank Represntatives who will take care of the Bank Accounts
-    [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
+    [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   uncompletedOrders:
     // Array of Orders that are uet to be completed
-    [{ type: mongoose.Schema.ObjectId, ref: 'Order' }],
+    [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
   completedOrders:
     // Array of Orders that are uet to be completed
-    [{ type: mongoose.Schema.ObjectId, ref: 'Order' }],
+    [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
   logo: {
     type: String,
     // required: [true, 'A Bank must have a Logo'],
@@ -30,7 +30,7 @@ const bankSchema = new mongoose.Schema({
 bankSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'reps',
-    select: 'name',
+    select: '_id',
   });
   next();
 });
