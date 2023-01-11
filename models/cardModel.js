@@ -11,7 +11,6 @@ const cardSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'A card must have a name'],
-    unique: true,
     trim: true, // Remove leading and trailing whitespaces. " ABC  " = "ABC"
     maxLength: [30, 'A card must have less or equal than 30 characters'],
     minLenght: [7, 'A card mist have more than or equal to 10 chracters'],
@@ -30,7 +29,7 @@ const cardSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'A card must have a price'],
   },
-  slug: String,
+  slug: { type: String, unique: true },
   createdAt: {
     type: Date,
     default: Date.now(),

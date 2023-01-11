@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser'); // To get access to Web Cookies
 
 const userRouter = require('./routes/userRoutes');
 const cardRouter = require('./routes/cardRoutes');
@@ -10,6 +11,7 @@ const app = express();
 app.use(morgan('dev'));
 
 app.use(express.json({ limit: '10kb' })); // A function that can modify an incoming request data
+app.use(cookieParser());
 
 // MOUTING OUR ROUTES
 

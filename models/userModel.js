@@ -107,12 +107,12 @@ userSchema.pre('save', async function (next) {
 
 // METHODS
 
-// userSchema.methods.correctPassword = async function (
-//   candidatePassword,
-//   userPassword // This method will compare two passwords..needed for login
-// ) {
-//   return await bcrypt.compare(candidatePassword, userPassword);
-// };
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword // This method will compare two passwords..needed for login
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 // Creating the USER Model
 const User = mongoose.model('User', userSchema);
