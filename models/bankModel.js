@@ -12,7 +12,7 @@ const bankSchema = new mongoose.Schema({
     unique: true,
   },
   reps:
-    // Array of Bank Represntatives who will take care of the Bank Accounts
+    // Array of Bank Represntatives who will take care of the Issuer Account
     [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   uncompletedOrders:
     // Array of Orders that are uet to be completed
@@ -27,13 +27,13 @@ const bankSchema = new mongoose.Schema({
 });
 
 // Populating reps
-bankSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'reps',
-    select: '_id',
-  });
-  next();
-});
+// bankSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'reps',
+//     select: '_id',
+//   });
+//   next();
+// });
 
 // Creating the Bank model
 const Bank = mongoose.model('Bank', bankSchema);

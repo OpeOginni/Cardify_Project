@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
+const Bank = require('./bankModel');
+
 // We Create a schema for the User Object
 // name, email, role, password, passwordConfirm
 
@@ -28,6 +30,12 @@ const userSchema = new mongoose.Schema({
     // 3) Admin adds and removes Available cards also removes Users
     default: 'user',
   },
+  representedIssuer: {
+    // Used if the User is a bank-rep...Points to the bank that he/she represents
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Bank',
+    required: [isBankRep, 'Bank Rep must be associated with a Bank or Issuer'],
+  },
   password: {
     type: String,
     required: [true, 'Please provide a password'],
@@ -48,31 +56,63 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// FUNCTIONS
+
+function isBankRep() {
+  // This function is needed to make the 'representedIssuer' attribute to be required only if the user is a bank-rep
+  if (this.role === 'bank-rep') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 // MIDDLEWARES
+
+// Populating the representedIssuer atttribute to include the name
+userSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'representedIssuer',
+    select: 'name',
+  });
+  next();
+});
 
 userSchema.pre('save', async function (next) {
   // This Middleware is run whenever a new user is created/saved to the DB
 
+  // PASSWORD ENCRYPTION
   // It Hashes the password of the user so that the actual password is not stored on the databse
-
   // Hash the password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
-
   // Delete the passwordConfirm field...It is not needed anymore
   this.passwordConfirm = undefined;
 
-  // Calling the next() function to move to te next middleware
+  // BUG PREVENTION
+  // Removing the issuerRepresented attribute if a normal user fills it in
+  if (this.role !== 'bank-rep') {
+    this.representedIssuer = undefined;
+  }
+
+  // ADDING REPRESENTATIVES TO THE ISSUER < BANK > OBJECT
+  if (this.role === 'bank-rep') {
+    // Adds a Bank-rep's ID to the reps attribute in the Bank Object
+    await Bank.findByIdAndUpdate(this.representedIssuer, {
+      $push: { reps: this._id },
+    });
+  }
+  // Calling the next() function to move to the next middleware
   next();
 });
 
 // METHODS
 
-userSchema.methods.correctPassword = async function (
-  candidatePassword,
-  userPassword // This method will compare two passwords..needed for login
-) {
-  return await bcrypt.compare(candidatePassword, userPassword);
-};
+// userSchema.methods.correctPassword = async function (
+//   candidatePassword,
+//   userPassword // This method will compare two passwords..needed for login
+// ) {
+//   return await bcrypt.compare(candidatePassword, userPassword);
+// };
 
 // Creating the USER Model
 const User = mongoose.model('User', userSchema);
