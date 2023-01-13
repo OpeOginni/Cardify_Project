@@ -11,6 +11,9 @@ router.get('/logout', authController.logout);
 // All routes below needs a user to be signed in to access AKA they are protected
 router.use(authController.protect);
 
+router.get('/me', userController.getMe, userController.getUser); // Getts the currently Logged in user
+router.delete('/deleteMe', userController.deleteMe); // Deletes the currently logged in user
+
 router
   .route('/') // https://127.0.0.1/api/v1/users
   .get(userController.getAllUsers)

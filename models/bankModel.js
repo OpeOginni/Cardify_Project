@@ -1,6 +1,7 @@
 // Here we will create the model that Stores Card Issues AKA Banks
 
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 // We Create a schema for the Bank Object
 // name, reps, uncompletedOrders, completedOrders, logo
@@ -24,17 +25,14 @@ const bankSchema = new mongoose.Schema({
     type: String,
     // required: [true, 'A Bank must have a Logo'],
   },
+  slug: { type: String, unique: true },
 });
 
-// Populating reps
-// bankSchema.pre(/^find/, function (next) {
-//   this.populate({
-//     path: 'reps',
-//     select: '_id',
-//   });
-//   next();
-// });
-
+// MIDDLEWARES
+bankSchema.pre('save', async function (next) {
+  this.slug = slugify(this.name, { lower: true }); // Creating a slug of the bank name...Makes it easier to search for a bank
+  next();
+});
 // Creating the Bank model
 const Bank = mongoose.model('Bank', bankSchema);
 

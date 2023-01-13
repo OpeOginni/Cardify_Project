@@ -8,7 +8,7 @@ const Bank = require('./bankModel');
 // name, issuer < bank that issues the card > , description, images, price, slug, createdAt
 
 const cardSchema = new mongoose.Schema({
-  name: {
+  cardType: {
     type: String,
     required: [true, 'A card must have a name'],
     trim: true, // Remove leading and trailing whitespaces. " ABC  " = "ABC"
@@ -27,27 +27,27 @@ const cardSchema = new mongoose.Schema({
   images: [String], // An Array of strings
   price: {
     type: Number,
-    required: [true, 'A card must have a price'],
+    required: [true, 'A price must be put to order a card'],
   },
-  slug: { type: String, unique: true },
   createdAt: {
     type: Date,
     default: Date.now(),
     select: false,
   },
+  name: String,
 });
 
 // Populating Issuer
 cardSchema.pre(/^find/, function (next) {
   // Whenever any find operations are made for a Card Object the Issuer attribute is poulated and the Name of the issuer is returned as a response
-  this.populate({ path: 'issuer', select: 'name' });
+  this.populate({ path: 'issuer', select: 'name slug' });
   next();
 });
 
 // MIDDLEWARES
 cardSchema.pre('save', async function (next) {
   const _issuer = await Bank.findById(this.issuer); // Get the Name of the Issuer
-  this.slug = slugify(`${_issuer.name} ${this.name}`, { lower: true }); // Creating a slug of the Issuer Name and the Card Name
+  this.name = slugify(`${_issuer.name} ${this.cardType}`, { lower: true }); // Creating a slug of the Issuer Name and the Card Name
   next();
 });
 
