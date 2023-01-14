@@ -25,7 +25,7 @@ const bankSchema = new mongoose.Schema({
     type: String,
     // required: [true, 'A Bank must have a Logo'],
   },
-  slug: { type: String, unique: true },
+  slug: String,
 });
 
 // MIDDLEWARES

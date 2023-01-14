@@ -40,11 +40,15 @@ const orderSchema = new mongoose.Schema({
 orderSchema.pre('save', async function (next) {
   // If the order hasnt been delivered it should be added to the uncompletedOrders attribute in the Bank Object
   if (this.delivered === false) {
-    const issuerId = await Card.findById(this.card);
-    console.log(issuerId);
-    await Bank.findByIdAndUpdate(issuerId.issuer._id, {
-      $push: { uncompletedOrders: this._id },
-    });
+    const card = await Card.findById(this.card);
+    console.log(card);
+    await Bank.findOneAndUpdate(
+      { name: card.issuer.name },
+      { $push: { uncompletedOrders: this._id } }
+    );
+    // await Bank.findByIdAndUpdate(card.issuer._id, {
+    //   $push: { uncompletedOrders: this._id },
+    // });
   }
 
   next();
@@ -55,7 +59,7 @@ orderSchema.pre('save', async function (next) {
 orderSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'card',
-    select: 'slug',
+    select: 'cardName -_id',
   }).populate({ path: 'user', select: 'name' });
   next();
 });
