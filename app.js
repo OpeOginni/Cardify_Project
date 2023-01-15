@@ -27,9 +27,12 @@ async function dbConnect() {
     .then(() => console.log('DB connection successful')); // Log to console when successful
 }
 
-dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
+// dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
 
-nextApp.prepare().then(() => {
+nextApp.prepare().then(async () => {
+  // Called function to connect db here so that I can await it...this is cause of thee poor network connection in my area
+  await dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
+
   const app = express();
   app.use(morgan('dev'));
 
