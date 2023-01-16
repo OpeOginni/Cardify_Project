@@ -129,6 +129,29 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// 5) Save loggedIn user details to req for frontend
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+  if (req.cookies.jwt) {
+    // 1) verify token
+    const decoded = await promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+
+    // 2) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+    if (!currentUser) {
+      return next(
+        new AppError('The user belonging to this token no longer exists', 401)
+      );
+    }
+    // THERE IS A LOGGED IN USER
+    res.locals.user = currentUser;
+    res.status(200).json({ user: currentUser });
+  }
+  next();
+});
+
 exports.restrictTo =
   (...roles) =>
   (req, res, next) => {

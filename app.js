@@ -16,6 +16,7 @@ const userRouter = require('./server/routes/userRoutes');
 const cardRouter = require('./server/routes/cardRoutes');
 const bankRouter = require('./server/routes/bankRoutes');
 const orderRouter = require('./server/routes/orderRoutes');
+const viewRouter = require('./server/routes/viewRoutes');
 
 const DB = process.env.DATABASE;
 
@@ -46,6 +47,7 @@ nextApp.prepare().then(async () => {
   app.use('/api/v1/cards', cardRouter);
   app.use('/api/v1/banks', bankRouter);
   app.use('/api/v1/orders', orderRouter);
+  app.use('/api/v1/auth', viewRouter); // 127.0.0.1:3000/api/v1/authenticate
 
   app.get('*', (req, res) => {
     return handle(req, res);
