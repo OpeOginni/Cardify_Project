@@ -1,26 +1,25 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import axios from 'axios';
 
-export default function Login() {
+export default function Signin() {
   useEffect(() => {
     const loginForm = document.querySelector('#loginForm');
     loginForm.addEventListener('submit', async (e) => {
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       e.preventDefault();
-
       try {
         const res = await axios
           .post(`/api/v1/users/login`, {
-            name: name,
             email: email,
             password: password,
-            passwordConfirm: passwordConfirm,
           })
           .then((res) => {
             console.log(res);
-            if (res.status == 201) {
+            if (res.status == 200) {
               window.location.assign('/');
               // return alert('Signed Up Successfuly');
             } else {
@@ -53,7 +52,7 @@ export default function Login() {
               height="100"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+              Log in to your account
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
@@ -109,7 +108,7 @@ export default function Login() {
                     aria-hidden="true"
                   />
                 </span>
-                Sign in
+                Log in
               </button>
             </div>
           </form>

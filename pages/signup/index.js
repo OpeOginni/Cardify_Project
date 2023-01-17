@@ -22,7 +22,6 @@ export default function Signup() {
             passwordConfirm: passwordConfirm,
           })
           .then((res) => {
-            console.log(res);
             if (res.status == 201) {
               window.location.assign('/');
               // return alert('Signed Up Successfuly');

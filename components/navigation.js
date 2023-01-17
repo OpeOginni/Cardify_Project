@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { fetchData } from '@project-serum/anchor/dist/cjs/utils/registry';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -56,7 +55,7 @@ export default function NavigationBar() {
       });
 
     if (logoutBtnMobile)
-      logoutBtn.addEventListener('click', async (e) => {
+      logoutBtnMobile.addEventListener('click', async (e) => {
         try {
           const res = await axios.get(`/api/v1/users/logout`);
           if (res.data.status === 'success') {
@@ -99,23 +98,27 @@ export default function NavigationBar() {
                 </Disclosure.Button>
               </div>
 
-              <Image
-                className="hidden h-45 w-auto lg:block"
-                src="/cardify-logo.png"
-                alt="Cardify Logo"
-                height="100"
-                width="100"
-              />
+              <Link href="/">
+                <Image
+                  className="hidden h-45 w-auto lg:block"
+                  src="/cardify-logo.png"
+                  alt="Cardify Logo"
+                  height="100"
+                  width="100"
+                />
+              </Link>
 
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start pl-12">
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <Image
-                    className="block h-20 w-auto lg:hidden"
-                    src="/cardify-logo.png"
-                    alt="Cardify Logo"
-                    height="100"
-                    width="100"
-                  />
+                  <Link href="/">
+                    <Image
+                      className="block h-20 w-auto lg:hidden"
+                      src="/cardify-logo.png"
+                      alt="Cardify Logo"
+                      height="100"
+                      width="100"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -185,13 +188,12 @@ export default function NavigationBar() {
                 >
                   <Link
                     href={'/login'}
-                    className="mr-2 font-bold text-project-pink px-8 py-2 hover:text-project-pink/70"
+                    className=" font-bold border-2 border-project-pink text-project-pink px-2 py-1 rounded-2xl hover:text-project-pink/70 "
                   >
                     LOGIN
                   </Link>
                 </div>
 
-                {/* Profile dropdown */}
                 <Menu
                   as="div"
                   className={classNames(
@@ -201,10 +203,15 @@ export default function NavigationBar() {
                   )}
                 >
                   <div>
-                    <Menu.Button className="flex text-sm px-2  text-project-pink border-2 border-project-pink rounded-2xl">
+                    <div className="flex text-sm px-2  text-project-pink border-2 border-project-pink rounded-2xl">
                       <span className="sr-only">Open user menu</span>
-                      <p className="h-auto w-auto rounded-full">{user.name}</p>
-                    </Menu.Button>
+                      <button
+                        className="h-auto w-auto rounded-full"
+                        id="logoutBtnMobile"
+                      >
+                        LogOut User
+                      </button>
+                    </div>
                   </div>
                   <Transition
                     as={Fragment}
@@ -214,49 +221,7 @@ export default function NavigationBar() {
                     leave="transition ease-in duration-75"
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <button
-                            id="logoutBtnMobile"
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            LOGOUT
-                          </button>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
+                  ></Transition>
                 </Menu>
               </div>
             </div>
