@@ -2,7 +2,36 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function signup() {
+export default function Login() {
+  useEffect(() => {
+    const loginForm = document.querySelector('#loginForm');
+    loginForm.addEventListener('submit', async (e) => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      e.preventDefault();
+
+      try {
+        const res = await axios
+          .post(`/api/v1/users/login`, {
+            name: name,
+            email: email,
+            password: password,
+            passwordConfirm: passwordConfirm,
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status == 201) {
+              window.location.assign('/');
+              // return alert('Signed Up Successfuly');
+            } else {
+              alert('ERROR');
+            }
+          });
+      } catch (err) {
+        alert('Please check your details');
+      }
+    });
+  }, []);
   return (
     <>
       {/*
@@ -36,7 +65,7 @@ export default function signup() {
               </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" id="loginForm">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
@@ -44,7 +73,7 @@ export default function signup() {
                   Email address
                 </label>
                 <input
-                  id="email-address"
+                  id="email"
                   name="email"
                   type="email"
                   autoComplete="email"

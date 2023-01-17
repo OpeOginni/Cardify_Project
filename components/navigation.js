@@ -25,21 +25,50 @@ export default function NavigationBar() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState('');
 
-  useEffect(() => {
-    // Using useEffect prevents the api from running continiously
+  async function fetchData() {
     console.log('Running GET');
     try {
-      async function fetchData() {
-        axios.get(`http://127.0.0.1:3000/api/v1/auth`).then((res) => {
-          const loggedInUser = res.data.user;
-          setUser(loggedInUser);
-          setLoggedIn(true);
-        });
-      }
-      fetchData();
-    } catch (err) {
-      alert('SignIn');
-    }
+      await axios.get(`/api/v1/auth`).then((res) => {
+        const loggedInUser = res.data.user;
+        if (loggedInUser === 'Not Logged In') {
+          return setLoggedIn(false);
+        }
+        setUser(loggedInUser);
+        setLoggedIn(true);
+      });
+    } catch (err) {}
+  }
+
+  useEffect(() => {
+    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+
+    if (logoutBtn)
+      logoutBtn.addEventListener('click', async (e) => {
+        try {
+          const res = await axios.get(`/api/v1/users/logout`);
+          if (res.data.status === 'success') {
+            window.location.assign('/');
+          }
+        } catch (err) {
+          alert('ERROR');
+        }
+      });
+
+    if (logoutBtnMobile)
+      logoutBtn.addEventListener('click', async (e) => {
+        try {
+          const res = await axios.get(`/api/v1/users/logout`);
+          if (res.data.status === 'success') {
+            window.location.assign('/');
+          }
+        } catch (err) {
+          alert('ERROR');
+        }
+      });
+
+    // Using useEffect prevents the api from running continiously
+    fetchData();
   }, []);
 
   for (let i = 0; i < navigation.length; i++) {
@@ -115,13 +144,13 @@ export default function NavigationBar() {
                   )}
                 >
                   <Link
-                    href={'login'}
+                    href={'/login'}
                     className="mr-2 font-bold text-project-pink px-8 py-2 hover:text-project-pink/70"
                   >
                     LOGIN
                   </Link>
                   <Link
-                    href={'signup'}
+                    href={'/signup'}
                     className="font-bold text-project-pink px-8 py-2 border-2 border-project-pink rounded-2xl hover:border-project-pink/70 hover:text-project-pink/70"
                   >
                     SIGN UP
@@ -133,12 +162,12 @@ export default function NavigationBar() {
                     isLoggedIn ? 'hidden md:block pr-7' : 'hidden'
                   )}
                 >
-                  <Link
-                    href={'/logout'}
+                  <button
+                    id="logoutBtn"
                     className="mr-2 font-bold text-project-pink px-8 py-2 hover:text-project-pink/70"
                   >
                     LOGOUT
-                  </Link>
+                  </button>
                   <Link
                     href={'/myOrders'}
                     className="font-bold text-project-pink px-8 py-2 border-2 border-project-pink rounded-2xl hover:border-project-pink/70 hover:text-project-pink/70"
@@ -155,7 +184,7 @@ export default function NavigationBar() {
                   )}
                 >
                   <Link
-                    href={'login'}
+                    href={'/login'}
                     className="mr-2 font-bold text-project-pink px-8 py-2 hover:text-project-pink/70"
                   >
                     LOGIN
@@ -215,15 +244,15 @@ export default function NavigationBar() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
+                            id="logoutBtnMobile"
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
-                            Sign out
-                          </a>
+                            LOGOUT
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>

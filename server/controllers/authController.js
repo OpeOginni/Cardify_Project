@@ -141,14 +141,14 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
     // 2) Check if user still exists
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
-      return next(
-        new AppError('The user belonging to this token no longer exists', 401)
-      );
+      res.status(200).json({ user: 'Not Logged In' });
+      return next();
     }
     // THERE IS A LOGGED IN USER
-    res.locals.user = currentUser;
     res.status(200).json({ user: currentUser });
+    return next();
   }
+  res.status(200).json({ user: 'Not Logged In' });
   next();
 });
 

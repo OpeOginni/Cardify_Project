@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 export default function Signup() {
@@ -32,8 +31,7 @@ export default function Signup() {
             }
           });
       } catch (err) {
-        alert(err.message);
-        // alert(err.message);
+        alert('Please check your details');
       }
     });
   }, []);
