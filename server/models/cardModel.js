@@ -39,7 +39,7 @@ const cardSchema = new mongoose.Schema({
 // Populating Issuer
 cardSchema.pre(/^find/, function (next) {
   // Whenever any find operations are made for a Card Object the Issuer attribute is poulated and the Name of the issuer is returned as a response
-  this.populate({ path: 'issuer', select: 'name -_id' });
+  this.populate({ path: 'issuer', select: 'name' });
   next();
 });
 

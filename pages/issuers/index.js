@@ -35,7 +35,7 @@ export default function IssuersPage() {
             >
               <div className=" w-full overflow-hidden rounded-lg bg-gray-200  ">
                 <Image
-                  src={'/UBA-Logo.svg'}
+                  src={`/${issuer.logo}`}
                   alt={'Testing'}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                   height="50"

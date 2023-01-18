@@ -30,4 +30,6 @@ router
     cardController.deleteCard
   );
 
+router.get('/issuer/:issuerSlug', cardController.getCardsFromBank);
+
 module.exports = router;
