@@ -23,6 +23,10 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Order must have a price'],
   },
+  deliveryAddress: {
+    type: String,
+    required: [true, 'An address must be given'],
+  },
   orderedDate: {
     type: Date,
     default: Date.now(),

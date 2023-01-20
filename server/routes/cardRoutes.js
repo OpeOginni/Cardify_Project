@@ -32,4 +32,6 @@ router
 
 router.get('/issuer/:issuerSlug', cardController.getCardsFromBank);
 
+router.get('/showRoom/featuredCards', cardController.getFeaturedCards);
+
 module.exports = router;

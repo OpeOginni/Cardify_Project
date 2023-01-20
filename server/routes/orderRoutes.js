@@ -14,7 +14,9 @@ router
   )
   .post(orderController.createOrder);
 
-router.use(authController.restrictTo('admin', 'bank-rep'));
+router.post('/checkout-session/:cardId', orderController.getCheckoutSession);
+
+router.use(authController.restrictTo('admin', 'bank-rep')); // Restricted to only admins and Bank Reps
 
 router
   .route('/:id')

@@ -49,6 +49,9 @@ nextApp.prepare().then(async () => {
   app.use('/api/v1/orders', orderRouter);
   app.use('/api/v1/auth', viewRouter); // 127.0.0.1:3000/api/v1/authenticate
 
+  const serveFiles = express.static('./public'); // To help serve our images
+  app.use('/images', serveFiles);
+
   app.get('*', (req, res) => {
     return handle(req, res);
   });

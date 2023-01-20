@@ -34,6 +34,10 @@ const cardSchema = new mongoose.Schema({
     select: false,
   },
   cardName: String,
+  featured: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // Populating Issuer

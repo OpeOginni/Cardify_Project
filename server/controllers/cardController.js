@@ -17,3 +17,13 @@ exports.getCardsFromBank = catchAsync(async (req, res, next) => {
     .status(200)
     .json({ status: 'success', results: cards.length, data: cards });
 });
+
+exports.getFeaturedCards = catchAsync(async (req, res, next) => {
+  // Get some cards that we will display on the Main Cards Page
+  const featuredCards = await Card.find({ featured: true });
+  res.status(200).json({
+    status: 'success',
+    results: featuredCards.length,
+    data: featuredCards,
+  });
+});
