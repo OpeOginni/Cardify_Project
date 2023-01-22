@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon app.js",
     "build": "next build",
-    "start": "next start",
+    "start": "node app.js",
     "lint": "next lint"
   },
   "dependencies": {

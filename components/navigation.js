@@ -20,12 +20,10 @@ function classNames(...classes) {
 export default function NavigationBar() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  console.log(router);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState('');
 
   async function fetchData() {
-    console.log('Running GET');
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
         const loggedInUser = res.data.user;

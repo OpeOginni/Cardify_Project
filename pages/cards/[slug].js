@@ -41,7 +41,6 @@ export default function SlugPage() {
   }
 
   async function fetchData() {
-    console.log('Running GET');
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
         const loggedInUser = res.data.user;
@@ -58,7 +57,6 @@ export default function SlugPage() {
     const orderAddress = document.getElementById('location').value;
 
     try {
-      console.log('TRYINGG');
       const res = await axios.post(
         `/api/v1/orders/checkout-session/${product._id}`,
         {
@@ -69,7 +67,6 @@ export default function SlugPage() {
           deliveryAddress: orderAddress,
         }
       );
-      console.log(res);
       window.location.replace(res.data.session.url);
     } catch (err) {
       alert('Please try again ');
@@ -79,28 +76,6 @@ export default function SlugPage() {
   const slug = GetSlug();
 
   useEffect(() => {
-    // const orderBtn = document.getElementById('orderBtn');
-    // if (orderBtn)
-    //   orderBtn.addEventListener('click', async (e) => {
-    //     const orderAddress = document.getElementById('location').value;
-    //     e.preventDefault();
-    //     try {
-    //       const res = await axios.post(
-    //         `/api/v1/orders/checkout-session/${product._id}`,
-    //         {
-    //           email: user.email,
-    //           price: product.price + deliveryFee,
-    //           user: user._id,
-    //           card: product._id,
-    //           deliveryAddress: orderAddress,
-    //         }
-    //       );
-    //       console.log(res);
-    //     } catch (err) {
-    //       alert('Please try again ');
-    //     }
-    //   });
-
     // Using useEffect prevents the api from running continiously
     if (slug != undefined) {
       axios.get(`/api/v1/cards/issuer/${slug}`).then((res) => {

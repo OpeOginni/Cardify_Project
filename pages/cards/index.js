@@ -33,7 +33,6 @@ export default function CardPage() {
   }
 
   async function fetchUser() {
-    console.log('Running GET');
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
         const loggedInUser = res.data.user;
@@ -50,7 +49,6 @@ export default function CardPage() {
     const orderAddress = document.getElementById('location').value;
 
     try {
-      console.log('TRYINGG');
       const res = await axios.post(
         `/api/v1/orders/checkout-session/${product._id}`,
         {
@@ -61,7 +59,6 @@ export default function CardPage() {
           deliveryAddress: orderAddress,
         }
       );
-      console.log(res);
       window.location.replace(res.data.session.url);
     } catch (err) {
       alert('Please try again ');

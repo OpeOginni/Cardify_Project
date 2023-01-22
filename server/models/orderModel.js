@@ -45,7 +45,6 @@ orderSchema.pre('save', async function (next) {
   // If the order hasnt been delivered it should be added to the uncompletedOrders attribute in the Bank Object
   if (this.delivered === false) {
     const card = await Card.findById(this.card);
-    console.log(card);
     await Bank.findOneAndUpdate(
       { name: card.issuer.name },
       { $push: { uncompletedOrders: this._id } }

@@ -18,14 +18,11 @@ exports.getUserOrders = catchAsync(async (req, res, next) => {
   let orderedCards = []; // an array of all the cards that were ordered
   let orderedDate = [];
   const orders = await Order.find({ user: req.params.userId });
-  console.log(orders);
   for (var i = 0; i < orders.length; i++) {
     const card = await Card.find({ cardName: orders[i].card.cardName });
     orderedDate.push(orders[i].orderedDate);
-    console.log(card);
     orderedCards.push(card);
   }
-  console.log(orderedCards);
   res.status(200).json({
     status: 'success',
     orders: orderedCards,

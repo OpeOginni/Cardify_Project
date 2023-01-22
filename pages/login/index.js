@@ -18,10 +18,8 @@ export default function Signin() {
             password: password,
           })
           .then((res) => {
-            console.log(res);
             if (res.status == 200) {
               window.location.assign('/');
-              // return alert('Signed Up Successfuly');
             } else {
               alert('ERROR');
             }
