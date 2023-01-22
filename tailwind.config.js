@@ -12,6 +12,9 @@ module.exports = {
         'project-pink': '#F64C72',
         'project-ruby': '#D81E5B',
       },
+      height: {
+        page: '75hv',
+      },
     },
   },
   plugins: [

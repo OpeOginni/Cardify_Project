@@ -46,7 +46,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   /* For a production site the order should only be created after the checkout session 
   as been successfuly completed, meaning the user has paid.
   
-  To do this a weebhook has to be created, but that won't be implemented in this project
+  To do this a webhook has to be created, but that won't be implemented in this project
    Here we assume one the user creates a checout session they complete the session*/
   const order = await Order.create({
     user: req.body.user,
