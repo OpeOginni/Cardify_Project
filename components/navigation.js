@@ -171,12 +171,12 @@ export default function NavigationBar() {
                   >
                     LOGOUT
                   </button>
-                  <Link
+                  <span
                     href={'/myOrders'}
                     className="font-bold text-project-pink px-8 py-2 border-2 border-project-pink rounded-2xl hover:border-project-pink/70 hover:text-project-pink/70"
                   >
                     Welcome {user.name}
-                  </Link>
+                  </span>
                 </div>
 
                 <div

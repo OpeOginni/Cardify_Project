@@ -13,6 +13,26 @@ exports.updateOrder = factory.updateOne(Order);
 exports.deleteOrder = factory.deleteOne(Order);
 exports.createOrder = factory.createOne(Order);
 
+// Getting all orders from a particular user
+exports.getUserOrders = catchAsync(async (req, res, next) => {
+  let orderedCards = []; // an array of all the cards that were ordered
+  let orderedDate = [];
+  const orders = await Order.find({ user: req.params.userId });
+  console.log(orders);
+  for (var i = 0; i < orders.length; i++) {
+    const card = await Card.find({ cardName: orders[i].card.cardName });
+    orderedDate.push(orders[i].orderedDate);
+    console.log(card);
+    orderedCards.push(card);
+  }
+  console.log(orderedCards);
+  res.status(200).json({
+    status: 'success',
+    orders: orderedCards,
+    orderedDate: orderedDate,
+  });
+});
+
 // Creating a Stripe checkout session
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   // 1) Get the currently ordered card

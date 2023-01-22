@@ -32,7 +32,7 @@ export default function CardPage() {
     setOpen(true);
   }
 
-  async function fetchData() {
+  async function fetchUser() {
     console.log('Running GET');
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
@@ -69,17 +69,12 @@ export default function CardPage() {
   }
 
   useEffect(() => {
-    // const popupBtn = document.getElementById('popupBtn');
-    // popupBtn.addEventListener('click', async (e) => {
-    //   setOpen(true);
-    // });
-
     // Using useEffect prevents the api from running continiously
     axios.get(`/api/v1/cards/showRoom/featuredCards`).then((res) => {
       const cards = res.data.data;
       setCards(cards);
     });
-    fetchData();
+    fetchUser();
   }, []);
 
   return (
