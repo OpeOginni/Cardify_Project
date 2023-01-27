@@ -29,6 +29,11 @@ To run the app locally using Node use the following command
 ```bash
 npm run start
 ```
+The Local Site should be running on the folowing URL. Copy and paste on your browser after successfully running the app locally.
+
+```bash
+http://127.0.0.1:3000/
+```
 
 ## API Documentation
 
