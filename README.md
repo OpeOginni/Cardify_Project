@@ -16,7 +16,7 @@ npm install
 
 I provided an example env file that should guide you on what Environment Variables are needed to make the code work on your machine. It is located at the `config.env.exmaple` file. Use this guide and create a `config.env` file and input the needed variables.
 
-## Running
+## Running / Testing the App Locally
 
 To run the app locally using Nodemon use the following command
 

@@ -2,8 +2,9 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import axios from 'axios';
 
+//SignUp Page
+
 export default function Signup() {
-  //if (signupForm)
   useEffect(() => {
     const signupForm = document.querySelector('#signupForm');
     signupForm.addEventListener('submit', async (e) => {
@@ -16,6 +17,7 @@ export default function Signup() {
       try {
         const res = await axios
           .post(`http://127.0.0.1:3000/api/v1/users/signup`, {
+            // Posting the Signup details to the signup route in the API
             name: name,
             email: email,
             password: password,
@@ -24,7 +26,6 @@ export default function Signup() {
           .then((res) => {
             if (res.status == 201) {
               window.location.assign('/');
-              // return alert('Signed Up Successfuly');
             } else {
               alert('ERROR');
             }
@@ -37,14 +38,6 @@ export default function Signup() {
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>

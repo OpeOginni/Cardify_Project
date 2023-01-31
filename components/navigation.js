@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
+// Creating an array of navigation objects, these are the places users can navigate to on the mobile view
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Issuers', href: '/issuers', current: false },
@@ -20,10 +21,16 @@ function classNames(...classes) {
 export default function NavigationBar() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState('');
+
+  const [isLoggedIn, setLoggedIn] = useState(false); // State to check if a user is logged in or not
+  // Helpful when we only need to show an element when the user is logged in
+
+  const [user, setUser] = useState(''); // State to set the exact user that is logged in
 
   async function fetchData() {
+    // This function uses the AI to get if the user is logged in using the cookies
+    // and sets the isLoggedIn state accordingly
+
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
         const loggedInUser = res.data.user;
@@ -41,6 +48,7 @@ export default function NavigationBar() {
     const logoutBtnMobile = document.getElementById('logoutBtnMobile');
 
     if (logoutBtn)
+      // If the logout button is clicked, the user is logged out, by calling the logout route in the API
       logoutBtn.addEventListener('click', async (e) => {
         try {
           const res = await axios.get(`/api/v1/users/logout`);
@@ -53,6 +61,7 @@ export default function NavigationBar() {
       });
 
     if (logoutBtnMobile)
+      // This is for the Mobile VIew Logout button
       logoutBtnMobile.addEventListener('click', async (e) => {
         try {
           const res = await axios.get(`/api/v1/users/logout`);
@@ -68,6 +77,7 @@ export default function NavigationBar() {
     fetchData();
   }, []);
 
+  // Code to make sure that the page the user is in is noted and is given the right colour
   for (let i = 0; i < navigation.length; i++) {
     if (router.pathname.endsWith(navigation[i].href)) {
       navigation[i].current = true;

@@ -17,7 +17,7 @@ const card = {
 const deliveryFee = 65;
 
 function GetSlug() {
-  // Function to get the particular issuer
+  // Function to get the particular issuer from th query
   const router = useRouter();
   const slug = router.query.slug;
   return slug;
@@ -28,19 +28,21 @@ function classNames(...classes) {
 }
 
 export default function SlugPage() {
-  const [cards, setCards] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [product, setProduct] = useState(card);
+  const [cards, setCards] = useState([]); // State that sets the cards from an issuer
+  const [open, setOpen] = useState(false); // State that checks if the Popup is open
+  const [product, setProduct] = useState(card); // State that shows the card that was selected to be ordered
 
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState('');
 
   function handlePopup(individualCard) {
+    // Function that brings the popup when ordering a card
     setProduct(individualCard);
     setOpen(true);
   }
 
   async function fetchData() {
+    // Checks if the user is logged in or not
     try {
       await axios.get(`/api/v1/auth`).then((res) => {
         const loggedInUser = res.data.user;
@@ -54,6 +56,7 @@ export default function SlugPage() {
   }
 
   async function getCheckout() {
+    // This is the fucntion that calls the STRIPE API, using our API route
     const orderAddress = document.getElementById('location').value;
 
     try {
@@ -73,11 +76,12 @@ export default function SlugPage() {
     }
   }
 
-  const slug = GetSlug();
+  const slug = GetSlug(); // Saving the issuer's slug to a variable
 
   useEffect(() => {
     // Using useEffect prevents the api from running continiously
     if (slug != undefined) {
+      // Using the slug to run a get request that returns all cards from that issuer
       axios.get(`/api/v1/cards/issuer/${slug}`).then((res) => {
         const cards = res.data.data;
 
@@ -90,7 +94,7 @@ export default function SlugPage() {
 
   return (
     <div className="bg-white">
-      {/* Popup Page */}
+      {/* Popup Page When Choosing a Card to Order */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={setOpen}>
           <Transition.Child

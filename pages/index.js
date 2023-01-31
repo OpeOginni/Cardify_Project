@@ -4,6 +4,7 @@ import Footer from '@/components/footer';
 import { Fragment } from 'react';
 
 export default function HomePage() {
+  // This is the home page, that will have just basic Grid of images and a button to send users to order cards
   return (
     <Fragment>
       <div className="relative overflow-hidden bg-white h-screen">

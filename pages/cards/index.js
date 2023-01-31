@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
+// This is the featured cards page
 const card = {
   name: 'Test Card',
   price: '192',
@@ -13,7 +14,7 @@ const card = {
   description: 'SOmethingggg',
 }; // Put this dummy data to let code work
 
-const deliveryFee = 65;
+const deliveryFee = 65; // Initialized the delivery Fee
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');

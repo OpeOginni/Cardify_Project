@@ -2,9 +2,11 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios'; // I make use of AXIOS for all HTTP requests
 
+// Login Page
 export default function Signin() {
+  // This function uses the Users's Input data and posts it to the login Route of the API
   useEffect(() => {
     const loginForm = document.querySelector('#loginForm');
     loginForm.addEventListener('submit', async (e) => {
@@ -31,14 +33,6 @@ export default function Signin() {
   }, []);
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
