@@ -1,6 +1,0 @@
-{
-  "version": 2,
-  "name": "Cardify_Project",
-  "builds": [{ "src": "app.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/api/v1", "dest": "app.js" }]
-}
