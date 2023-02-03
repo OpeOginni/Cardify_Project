@@ -6,6 +6,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
+const path = require('path');
 
 // Need to Require needed Modules
 const mongoose = require('mongoose'); // We are using mongoose to help Connect to our DataBase
@@ -52,8 +53,8 @@ nextApp
     app.use('/api/v1/orders', orderRouter);
     app.use('/api/v1/auth', viewRouter); // 127.0.0.1:3000/api/v1/authenticate
 
-    const serveFiles = express.static('./public'); // To help serve our images
-    app.use('/images', serveFiles);
+    const serveFiles = express.static(path.join(__dirname, '/public')); // To help serve our images
+    // app.use('/images', serveFiles);
 
     // app.use('*', (req, res) => {
     //   return handle(req, res);
