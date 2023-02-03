@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser'); // To get access to Web Cookies
 const next = require('next');
 const dev = process.env.NODE_ENV !== 'production';
+const port = process.env.PORT || 3000;
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
@@ -30,36 +31,43 @@ async function dbConnect() {
 
 // dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
 
-nextApp.prepare().then(async () => {
-  // Called function to connect db here so that I can await it...this is cause of thee poor network connection in my area
-  await dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
+nextApp
+  .prepare()
+  .then(async () => {
+    // Called function to connect db here so that I can await it...this is cause of thee poor network connection in my area
+    await dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
 
-  const app = express();
-  app.use(morgan('dev'));
+    const app = express();
+    app.use(morgan('dev'));
 
-  app.use(express.json({ limit: '10kb' })); // A function that can modify an incoming request data
-  app.use(cookieParser());
+    app.use(express.json({ limit: '10kb' })); // A function that can modify an incoming request data
+    app.use(cookieParser());
 
-  // MOUTING OUR ROUTES
+    // MOUTING OUR ROUTES
 
-  // 1)API ROUTES
-  app.use('/api/v1/users', userRouter); // 127.0.0.1:3000/api/v1/users
-  app.use('/api/v1/cards', cardRouter);
-  app.use('/api/v1/banks', bankRouter);
-  app.use('/api/v1/orders', orderRouter);
-  app.use('/api/v1/auth', viewRouter); // 127.0.0.1:3000/api/v1/authenticate
+    // 1)API ROUTES
+    app.use('/api/v1/users', userRouter); // 127.0.0.1:3000/api/v1/users
+    app.use('/api/v1/cards', cardRouter);
+    app.use('/api/v1/banks', bankRouter);
+    app.use('/api/v1/orders', orderRouter);
+    app.use('/api/v1/auth', viewRouter); // 127.0.0.1:3000/api/v1/authenticate
 
-  const serveFiles = express.static('./public'); // To help serve our images
-  app.use('/images', serveFiles);
+    const serveFiles = express.static('./public'); // To help serve our images
+    app.use('/images', serveFiles);
 
-  app.get('*', (req, res) => {
-    return handle(req, res);
+    // app.use('*', (req, res) => {
+    //   return handle(req, res);
+    // });
+    app.all('*', (req, res) => {
+      return handle(req, res);
+    });
+
+    const server = app.listen(port, () => {
+      console.log(`App running on port ${port}...`);
+    });
+  })
+  .catch((err) => {
+    console.log('Error', err);
   });
-
-  const port = process.env.PORT || 3000;
-  const server = app.listen(port, () => {
-    console.log(`App running on port ${port}...`);
-  });
-});
 
 // module.exports = app;
