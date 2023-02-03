@@ -17,8 +17,6 @@ export default function IssuersPage() {
     });
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-
   return (
     <div className="bg-white h-screen md:h-auto">
       <div className="text-center py-7 bg-gradient-to-r from-project-ruby to-project-pink text-white text-xl container mx-auto">
