@@ -50,7 +50,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${card.cardType}`,
             description: card.issuer.name,
-            images: [`http://127.0.0.1:3000/images${card.images[0]}`],
+            images: [
+              `https://cardifyproject-production.up.railway.app/${card.images[0]}`,
+            ],
           },
         },
         quantity: 1,

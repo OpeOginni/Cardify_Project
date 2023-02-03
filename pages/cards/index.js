@@ -9,7 +9,7 @@ import Link from 'next/link';
 const card = {
   name: 'Test Card',
   price: '192',
-  images: ['/coverCard7.jpg'],
+  images: ['/coverCard7.png'],
   cardType: 'Test Card Type',
   description: 'SOmethingggg',
 }; // Put this dummy data to let code work

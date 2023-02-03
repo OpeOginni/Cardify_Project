@@ -31,7 +31,7 @@ export default function HomePage() {
                       <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                           <Image
-                            src="/coverCard2.jpg"
+                            src="/coverCard2.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
@@ -40,7 +40,7 @@ export default function HomePage() {
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard5.jpg"
+                            src="/coverCard5.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
@@ -51,7 +51,7 @@ export default function HomePage() {
                       <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard4.jpg"
+                            src="/coverCard4.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
@@ -60,7 +60,7 @@ export default function HomePage() {
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard3.jpg"
+                            src="/coverCard3.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
@@ -69,7 +69,7 @@ export default function HomePage() {
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard.jpg"
+                            src="/coverCard.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={700}
@@ -80,7 +80,7 @@ export default function HomePage() {
                       <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard7.jpg"
+                            src="/coverCard7.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
@@ -89,7 +89,7 @@ export default function HomePage() {
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
                           <Image
-                            src="/coverCard6.jpg"
+                            src="/coverCard6.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
