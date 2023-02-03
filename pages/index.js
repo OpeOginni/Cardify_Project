@@ -31,7 +31,7 @@ export default function HomePage() {
                       <div className="grid flex-shrink-0 grid-cols-1 gap-y-6 lg:gap-y-8">
                         <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                           <Image
-                            src="/coverCard2.svg"
+                            src="/coverCard2.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
                             width={1000}
