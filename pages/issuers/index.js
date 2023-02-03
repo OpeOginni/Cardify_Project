@@ -10,7 +10,7 @@ export default function IssuersPage() {
   useEffect(() => {
     setLoading(true);
     // Using useEffect prevents the api from running continiously
-    axios.get(`http://127.0.0.1:3000/api/v1/banks`).then((res) => {
+    axios.get(`/api/v1/banks`).then((res) => {
       const issuers = res.data.data.data;
       setIssuers(issuers);
       setLoading(false);
