@@ -34,8 +34,8 @@ export default function HomePage() {
                             src="/coverCard2.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
@@ -43,8 +43,8 @@ export default function HomePage() {
                             src="/coverCard5.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                       </div>
@@ -54,8 +54,8 @@ export default function HomePage() {
                             src="/coverCard4.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
@@ -63,8 +63,8 @@ export default function HomePage() {
                             src="/coverCard3.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
@@ -83,8 +83,8 @@ export default function HomePage() {
                             src="/coverCard7.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                         <div className="h-64 w-44 overflow-hidden rounded-lg">
@@ -92,8 +92,8 @@ export default function HomePage() {
                             src="/coverCard6.png"
                             alt="Cover Picture"
                             className="h-full w-full object-cover object-center"
-                            width={1000}
-                            height={100}
+                            width="1000"
+                            height="100"
                           />
                         </div>
                       </div>
