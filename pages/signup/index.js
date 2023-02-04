@@ -16,7 +16,7 @@ export default function Signup() {
 
       try {
         const res = await axios
-          .post(`http://127.0.0.1:3000/api/v1/users/signup`, {
+          .post(`/api/v1/users/signup`, {
             // Posting the Signup details to the signup route in the API
             name: name,
             email: email,
