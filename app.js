@@ -39,7 +39,7 @@ nextApp
     await dbConnect().catch((err) => console.log(err)); // We try to connect to the Database and Catch and Log an error if One occurs
 
     const app = express();
-    app.use(morgan('dev'));
+    //app.use(morgan('dev'));
 
     app.use(express.json({ limit: '10kb' })); // A function that can modify an incoming request data
     app.use(cookieParser());
